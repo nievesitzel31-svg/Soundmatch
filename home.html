@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sound Match</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#121212;
+color:white;
+margin:0;
+padding-bottom:90px;
+text-align:center;
+}
+
+.section{
+display:none;
+padding:20px;
+}
+
+.active{
+display:block;
+}
+
+.card{
+background:#1e1e1e;
+width:320px;
+margin:auto;
+padding:20px;
+border-radius:20px;
+}
+
+img{
+width:100%;
+border-radius:15px;
+}
+
+button{
+padding:10px 20px;
+margin:8px;
+border:none;
+border-radius:10px;
+font-size:15px;
+cursor:pointer;
+}
+
+.match{
+background:#ff4d6d;
+color:white;
+}
+
+.pass{
+background:#444;
+color:white;
+}
+
+iframe{
+margin-top:15px;
+}
+
+.navbar{
+position:fixed;
+bottom:0;
+width:100%;
+background:#181818;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+}
+
+.navbar button{
+background:none;
+color:white;
+}
+
+.chat-box{
+background:#1e1e1e;
+padding:15px;
+border-radius:10px;
+width:300px;
+margin:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎧 Sound Match</h1>
+
+<!-- PERFIL -->
+
+<div id="perfil" class="section active">
+
+<h2>👤 Tu Perfil</h2>
+
+<p id="perfilNombre"></p>
+<p id="perfilArtista"></p>
+<p id="perfilGenero"></p>
+<p id="perfilUbicacion"></p>
+
+<input type="file">
+
+</div>
+
+<!-- MATCH -->
+
+<div id="inicio" class="section">
+
+<div class="card">
+
+<img src="https://i.imgur.com/2DhmtJ4.jpg">
+
+<h2 id="nombre"></h2>
+
+<p id="gustos"></p>
+
+<p id="opinion"></p>
+
+<p id="ubicacion"></p>
+
+<button class="match" onclick="like()">❤️ Match</button>
+<button class="pass" onclick="next()">❌ Pasar</button>
+
+</div>
+
+</div>
+
+<!-- MATCHES -->
+
+<div id="matches" class="section">
+
+<h2>❤️ Tus Matches</h2>
+
+<div id="listaMatches"></div>
+
+</div>
+
+<!-- CHAT -->
+
+<div id="chat" class="section">
+
+<h2>💬 Chat</h2>
+
+<div class="chat-box">
+
+<div id="mensajes"></div>
+
+<input id="mensajeInput" placeholder="Escribe mensaje">
+<button onclick="enviarMensaje()">Enviar</button>
+
+</div>
+
+</div>
+
+<!-- MUSICA -->
+
+<div id="musica" class="section">
+
+<h2>🎵 Música</h2>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4jCodMLVA5tV5MhPrspTfV" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5ER0JA9dl4vq8rj0zYsTNp" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2oxJ3eUkjKuRaqgbkPIUS8" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4d4ZXH4dr5bYfgErHiZCX2" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/71wFwRo8xGc4lrcyKwsvba" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6Jiom35dhAYX6ohfwJkQEr" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2EmcTFQ1rM11wp2ztsXTHa" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4a9tbd947vo9K8Vti9JwcI" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2PZtKB8fDoDGLot27oUnWH" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3wogsSWyEEu5eVgLqUqySF" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6lKSOnC9iLGDonypMgvGrm" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2sEk5R8ErGIFxbZ7rX6S2S" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3X9BUEqKI3r25tTKcQ6yVL" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1Qrg8KqiBpW07V7PNxwwwL" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3gevetiaW8SEebOxOu4AiZ" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/44XjoNvtwevktFKjvVe1vH" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6QJCZyJv1fhkCyZA3lRoAD" width="300" height="80"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7xDBtwxsife3u8luqSbSPR" width="300" height="80"></iframe>
+
+</div>
+
+<!-- PODCAST -->
+
+<div id="podcasts" class="section">
+
+<h2>🎙 Podcasts</h2>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2Bv0FUrq3IUQ8Y0asZ5K3M" width="300" height="152"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/39UB2FyXPTBorie1eKzUbu" width="300" height="152"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6VD7qvkRWhaesQhJIsLEky" width="300" height="152"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3wL47NXdkaO9aUttzTTnEk" width="300" height="152"></iframe>
+
+</div>
+
+<div class="navbar">
+
+<button onclick="mostrar('perfil')">Perfil</button>
+<button onclick="mostrar('inicio')">Match</button>
+<button onclick="mostrar('matches')">Matches</button>
+<button onclick="mostrar('chat')">Chat</button>
+<button onclick="mostrar('musica')">Música</button>
+<button onclick="mostrar('podcasts')">Podcast</button>
+
+</div>
+
+<script>
+
+let artista=localStorage.getItem("artista");
+let genero=localStorage.getItem("genero");
+let nombre=localStorage.getItem("nombre");
+
+document.getElementById("perfilNombre").innerText="Nombre: "+nombre;
+document.getElementById("perfilArtista").innerText="Artista favorito: "+artista;
+document.getElementById("perfilGenero").innerText="Género: "+genero;
+document.getElementById("perfilUbicacion").innerText="Ubicación: Querétaro 📍";
+
+let perfiles=[
+
+{nombre:"Alex",artista:"Drake",opinion:"Me encantan los aviones ✈️",ubicacion:"CDMX"},
+{nombre:"Sofía",artista:"Taylor Swift",opinion:"Quiero viajar por el mundo",ubicacion:"Guadalajara"},
+{nombre:"Carlos",artista:"Bad Bunny",opinion:"Los aviones son impresionantes",ubicacion:"Monterrey"}
+
+];
+
+let posicion=0;
+
+mostrarPerfil();
+
+function mostrarPerfil(){
+
+let perfil=perfiles[posicion];
+
+document.getElementById("nombre").innerText=perfil.nombre;
+document.getElementById("gustos").innerText="Le gusta: "+perfil.artista;
+document.getElementById("opinion").innerText=perfil.opinion;
+document.getElementById("ubicacion").innerText="📍 "+perfil.ubicacion;
+
+}
+
+function like(){
+
+let nombre=perfiles[posicion].nombre;
+
+document.getElementById("listaMatches").innerHTML+=
+"<p>"+nombre+" ❤️ <button onclick='abrirChat()'>Chat</button></p>";
+
+next();
+
+}
+
+function next(){
+
+posicion++;
+
+if(posicion>=perfiles.length){
+
+alert("Ya no hay más perfiles");
+
+return;
+
+}
+
+mostrarPerfil();
+
+}
+
+function abrirChat(){
+
+mostrar("chat");
+
+}
+
+function enviarMensaje(){
+
+let input=document.getElementById("mensajeInput");
+
+let mensaje=input.value;
+
+document.getElementById("mensajes").innerHTML+=
+"<p>Tu: "+mensaje+"</p>";
+
+input.value="";
+
+}
+
+function mostrar(seccion){
+
+let secciones=document.querySelectorAll(".section");
+
+secciones.forEach(s=>s.classList.remove("active"));
+
+document.getElementById(seccion).classList.add("active");
+
+}
+
+</script>
+
+</body>
+
+</h

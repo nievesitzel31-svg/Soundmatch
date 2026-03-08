@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sound Match</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4d6d">
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:linear-gradient(135deg,#ff4d6d,#6a5acd);
+color:white;
+padding-top:80px;
+margin:0;
+}
+
+select, textarea{
+padding:10px;
+font-size:16px;
+border-radius:10px;
+border:none;
+margin-top:10px;
+width:220px;
+}
+
+textarea{
+height:80px;
+}
+
+button{
+margin-top:25px;
+padding:12px 30px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:white;
+color:#333;
+cursor:pointer;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎧 Sound Match</h1>
+
+<p>Cuéntanos sobre ti</p>
+
+<h3>Artista favorito</h3>
+
+<select id="artista">
+
+<option>Drake</option>
+<option>Travis Scott</option>
+<option>Bad Bunny</option>
+<option>Taylor Swift</option>
+
+</select>
+
+<h3>Género musical favorito</h3>
+
+<select id="genero">
+
+<option>Hip Hop</option>
+<option>Pop</option>
+<option>Reggaeton</option>
+<option>Rock</option>
+
+</select>
+
+<h3>¿Qué opinas de los aviones? ✈️</h3>
+
+<textarea id="opinionAviones" placeholder="Escribe tu opinión..."></textarea>
+
+<br>
+
+<button onclick="guardar()">Entrar a Sound Match</button>
+
+<script>
+
+function guardar(){
+
+let artista=document.getElementById("artista").value;
+let genero=document.getElementById("genero").value;
+let opinion=document.getElementById("opinionAviones").value;
+
+localStorage.setItem("artista",artista);
+localStorage.setItem("genero",genero);
+localStorage.setItem("opinionAviones",opinion);
+
+window.location.href="home.html";
+
+}
+
+</script>
+
+<script>
+
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker.register("sw.js")
+.then(function(){
+console.log("Service Worker registrado");
+})
+
+}
+
+</script>
+
+</body>
+
+</html>
