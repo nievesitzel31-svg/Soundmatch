@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SoundMatch</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1db954">
+
+<style>
+body{
+font-family:Arial;
+margin:0;
+background:#111;
+color:white;
+text-align:center;
+}
+
+header{
+background:#1db954;
+padding:15px;
+font-size:22px;
+}
+
+section{
+padding:20px;
+}
+
+input, select{
+padding:10px;
+border-radius:8px;
+border:none;
+margin:5px;
+}
+
+button{
+padding:10px;
+border:none;
+border-radius:10px;
+background:#1db954;
+color:white;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>🎧 SoundMatch</header>
+
+<section>
+
+<h2>Crear perfil</h2>
+
+<input id="nombre" placeholder="Tu nombre">
+
+<h3>¿Qué música te gusta?</h3>
+<input id="genero" placeholder="Ej: Reggaeton, Pop, Rock">
+
+<h3>Artista favorito</h3>
+<select id="artista">
+<option>Rauw Alejandro</option>
+<option>Bad Bunny</option>
+<option>Karol G</option>
+<option>Feid</option>
+<option>Myke Towers</option>
+
+<option>Taylor Swift</option>
+<option>The Weeknd</option>
+<option>Drake</option>
+<option>Billie Eilish</option>
+<option>Kendrick Lamar</option>
+<option>Ariana Grande</option>
+<option>Peso Pluma</option>
+<option>Fuerza Regida</option>
+<option>Kenia OS</option>
+<option>BTS</option>
+<option>Mora</option>
+<option>Travis Scott</option>
+<option>Sabrina Carpenter</option>
+<option>Olivia Rodrigo</option>
+<option>Duki</option>
+<option>Natanael Cano</option>
+
+</select>
+
+<h3>¿Qué opinas de los aviones? ✈️</h3>
+<input id="aviones" placeholder="Tu opinión">
+
+<br><br>
+
+<button onclick="guardar()">Entrar</button>
+
+</section>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB18LEK8sK-dLfMgSCEUNWlsHbmM_7SojY",
+  authDomain: "sound-match-3878c.firebaseapp.com",
+  projectId: "sound-match-3878c",
+  storageBucket: "sound-match-3878c.appspot.com",
+  messagingSenderId: "587382638993",
+  appId: "1:587382638993:web:e457f8779c9dddfa8b3230"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.guardar = async function(){
+
+  let nombre = document.getElementById("nombre").value;
+  let genero = document.getElementById("genero").value;
+  let artista = document.getElementById("artista").value;
+  let aviones = document.getElementById("aviones").value;
+
+  if(!nombre){
+    alert("Pon tu nombre 😅");
+    return;
+  }
+
+  localStorage.setItem("nombre", nombre);
+  localStorage.setItem("genero", genero);
+  localStorage.setItem("artista", artista);
+  localStorage.setItem("aviones", aviones);
+
+  try {
+    await setDoc(doc(db, "usuarios", nombre), {
+      nombre,
+      genero,
+      artista,
+      aviones
+    });
+  } catch (e) {}
+
+  window.location.href = "home.html";
+};
+
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>

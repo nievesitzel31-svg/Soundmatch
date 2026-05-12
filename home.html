@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SoundMatch</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#111;
+color:white;
+text-align:center;
+}
+
+header{
+background:#1db954;
+padding:15px;
+font-size:22px;
+font-weight:bold;
+}
+
+nav{
+padding:15px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#1db954;
+color:white;
+margin:5px;
+cursor:pointer;
+}
+
+section{
+display:none;
+padding:20px;
+}
+
+.card{
+background:#222;
+padding:20px;
+margin:20px;
+border-radius:20px;
+}
+
+img{
+width:220px;
+border-radius:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>🎵 SoundMatch</header>
+
+<nav>
+<button onclick="cambiar('musica')">Música 🎶</button>
+<button onclick="cambiar('podcasts')">Podcasts 🎙️</button>
+<button onclick="cambiar('mensajes')">Mensajes 💬</button>
+<button onclick="cambiar('match')">Match 💕</button>
+</nav>
+
+<section id="musica">
+<h1>Música 🎶</h1>
+<div id="listaCanciones"></div>
+</section>
+
+<section id="podcasts">
+<h1>Podcasts 🎙️</h1>
+
+<div class="card">
+<h2>Café con música</h2>
+<p>Podcast de artistas y canciones 🎧</p>
+</div>
+
+</section>
+
+<section id="mensajes">
+<h1>Mensajes 💬</h1>
+
+<div class="card">
+<p>Alex: Hola 👋</p>
+</div>
+
+<div class="card">
+<p>Sofía: ¿Qué música escuchas? 🎵</p>
+</div>
+</div>
+
+<input id="mensajeTexto" placeholder="Escribe un mensaje...">
+
+<button onclick="mandarMensaje()">
+Enviar 💬
+</button>
+
+</section>
+
+<section id="match">
+<h1>Match 💕</h1>
+
+<div class="card">
+
+<img id="foto" src="https://picsum.photos/200">
+
+<h2 id="nombreMatch"></h2>
+<h3 id="artistaMatch"></h3>
+<p id="opinion"></p>
+
+<button onclick="like()">Like 💕</button>
+<button onclick="next()">Siguiente ➡️</button>
+
+</div>
+</section>
+
+<script>
+
+function cambiar(id){
+document.querySelectorAll("section").forEach(sec=>{
+sec.style.display="none";
+});
+document.getElementById(id).style.display="block";
+}
+
+let personas = [
+{nombre:"Alex",artista:"Drake",opinion:"Amo los aviones ✈️",foto:"https://picsum.photos/200?1"},
+{nombre:"Sofía",artista:"Karol G",opinion:"Viajar es lo mejor 💕",foto:"https://picsum.photos/200?2"},
+{nombre:"Luis",artista:"Bad Bunny",opinion:"Los vuelos son emocionantes 😎",foto:"https://picsum.photos/200?3"}
+];
+
+let i = 0;
+
+function mostrar(){
+let p = personas[i];
+document.getElementById("foto").src = p.foto;
+document.getElementById("nombreMatch").innerText = p.nombre;
+document.getElementById("artistaMatch").innerText = "Le gusta: " + p.artista;
+document.getElementById("opinion").innerText = p.opinion;
+}
+
+function like(){
+alert("Match con " + personas[i].nombre + " 💕");
+next();
+}
+
+function next(){
+i = (i + 1) % personas.length;
+mostrar();
+}
+
+const canciones = [
+{artista:"Bad Bunny",titulo:"NI BIEN NI MAL",url:"https://open.spotify.com/track/5OWKqDmJ6O7wqQ3dDVGt59"},
+{artista:"Taylor Swift",titulo:"Blank Space",url:"https://open.spotify.com/track/1hjRhYpWyqDpPahmSlUTlc"},
+{artista:"Drake",titulo:"God's Plan",url:"https://open.spotify.com/track/6DCZcSspjsKoFjzjrWoCdn"},
+{artista:"Karol G",titulo:"PROVENZA",url:"https://open.spotify.com/track/3nqQXoyQOWXiESFLlDF1hG"},
+{artista:"BTS",titulo:"Butter",url:"https://open.spotify.com/track/2bgTY4UwhfBYhGT4HUYStN"}
+];
+
+window.onload = () => {
+
+cambiar("musica");
+render();
+
+const contenedor = document.getElementById("listaCanciones");
+
+canciones.forEach(cancion=>{
+contenedor.innerHTML += `
+<div class="card">
+<h2>${cancion.artista}</h2>
+<h3>${cancion.titulo}</h3>
+<button onclick="window.open('${cancion.url}','_blank')">
+Escuchar en Spotify 🎵
+</button>
+</div>
+`;
+});
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
+
+function render(){
+
+let p = personas[i];
+
+document.getElementById("foto").src = p.foto;
+document.getElementById("nombreMatch").innerText = p.nombre;
+document.getElementById("artistaMatch").innerText = "Le gusta: " + p.artista;
+document.getElementById("opinion").innerText = p.opinion;
+
+addSwipe();
+}
+
+function addSwipe(){
+
+const card = document.querySelector("#match .card");
+
+if(!card) return;
+
+card.addEventListener("touchstart",(e)=>{
+startX = e.touches[0].clientX;
+isDragging = true;
+});
+
+card.addEventListener("touchmove",(e)=>{
+if(!isDragging) return;
+
+currentX = e.touches[0].clientX - startX;
+
+card.style.transform = `translateX(${currentX}px) rotate(${currentX/12}deg)`;
+});
+
+card.addEventListener("touchend",()=>{
+
+isDragging = false;
+
+if(currentX > 120){
+like();
+}
+else if(currentX < -120){
+next();
+}
+else{
+card.style.transform = "translateX(0)";
+}
+
+currentX = 0;
+
+});
+
+}
+
+function like(){
+alert("💖 Match con " + personas[i].nombre);
+next();
+}
+
+function next(){
+i = (i + 1) % personas.length;
+render();
+}
+
+};
+
+</script>
+
+</body>
+</html>
