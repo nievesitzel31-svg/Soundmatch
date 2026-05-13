@@ -95,7 +95,6 @@ border-radius:20px;
 <div class="card">
 <p>Sofía: ¿Qué música escuchas? 🎵</p>
 </div>
-</div>
 
 <input id="mensajeTexto" placeholder="Escribe un mensaje...">
 
@@ -157,18 +156,114 @@ i = (i + 1) % personas.length;
 mostrar();
 }
 
+function mandarMensaje(){
+let texto = document.getElementById("mensajeTexto").value;
+
+if(texto.trim() === ""){
+alert("Escribe un mensaje primero 💬");
+return;
+}
+
+let mensajes = document.getElementById("mensajes");
+
+mensajes.innerHTML += `
+<div class="card">
+<p>Tú: ${texto}</p>
+</div>
+`;
+
+document.getElementById("mensajeTexto").value = "";
+}
+
+function convertirSpotify(url){
+return url.replace("open.spotify.com/", "open.spotify.com/embed/");
+}
+
 const canciones = [
-{artista:"Bad Bunny",titulo:"NI BIEN NI MAL",url:"https://open.spotify.com/track/5OWKqDmJ6O7wqQ3dDVGt59"},
-{artista:"Taylor Swift",titulo:"Blank Space",url:"https://open.spotify.com/track/1hjRhYpWyqDpPahmSlUTlc"},
-{artista:"Drake",titulo:"God's Plan",url:"https://open.spotify.com/track/6DCZcSspjsKoFjzjrWoCdn"},
-{artista:"Karol G",titulo:"PROVENZA",url:"https://open.spotify.com/track/3nqQXoyQOWXiESFLlDF1hG"},
-{artista:"BTS",titulo:"Butter",url:"https://open.spotify.com/track/2bgTY4UwhfBYhGT4HUYStN"}
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"NI BIEN NI MAL",url:"https://open.spotify.com/track/5OWKqDmJ6O7wqQ3dDVGt59"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"200 MPH",url:"https://open.spotify.com/track/5jGUJXnELDaDTgiRjD9lsg"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"¿Quién Tú Eres?",url:"https://open.spotify.com/track/6rQSrBHf7HlZjtcMZ4S4bO"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Caro",url:"https://open.spotify.com/track/6it15CsDlkqB7N4lF0C1qM"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Tenemos Que Hablar",url:"https://open.spotify.com/track/3KkXRkHbMCARz0aVfEt68P"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Otra Noche en Miami",url:"https://open.spotify.com/track/4r9jkMEnArtWGH2rL2FZl0"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Ser Bichote",url:"https://open.spotify.com/track/50WeOn4I8Ipk4S9svf6XMB"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Si Estuviésemos Juntos",url:"https://open.spotify.com/track/35Zh1dMt05XUFKx4LwB0dD"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Solo de Mí",url:"https://open.spotify.com/track/4uP3pUP18ennmz0tb3GphR"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Cuando Perriabas",url:"https://open.spotify.com/track/0E3Hn6upC2Z6hB4k3XjX7K"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"La Romana",url:"https://open.spotify.com/track/6resQ6ZLhwsfRKhush0T9v"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Como Antes",url:"https://open.spotify.com/track/6y1QjZc6Y1uC6M5Jf8h4pD"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"RLNDT",url:"https://open.spotify.com/track/5RlyeR8vJp8P6t4Fh3K7tN"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"Estamos Bien",url:"https://open.spotify.com/track/2OWVCFTolecLiGZPquvWvT"},
+{artista:"Bad Bunny",album:"X 100PRE",titulo:"MÍA",url:"https://open.spotify.com/track/116H0KvKr2Zl4RPuVBruDO"},
+
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"MOJAITA",url:"https://open.spotify.com/track/6ylDpki1VpIsc525KC1ojF"},
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"YO LE LLEGO",url:"https://open.spotify.com/track/6qAcApH8obo8eqatCKUHd9"},
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"CUÍDALA",url:"https://open.spotify.com/track/2TH65lNHgvLxck8SkWlF4G"},
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"LA CANCIÓN",url:"https://open.spotify.com/track/0fea68AdmYNygeTGI4RC18"},
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"UN PESO",url:"https://open.spotify.com/track/5T490vvoFNU6psep0NPmxs"},
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"ODIO",url:"https://open.spotify.com/track/6QgjcU0zLnzq5OrUoSZ3OK"},
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"COMO UN BEBÉ",url:"https://open.spotify.com/track/7sQKy5vlPQllr0k9IjYJv3"},
+{artista:"Bad Bunny & J Balvin",album:"Oasis",titulo:"QUE PRETENDES",url:"https://open.spotify.com/track/25ZAibhr3bdlMCLmubZDVt"},
+
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Si Veo a Tu Mamá",url:"https://open.spotify.com/track/41wtwzCZkXwpnakmwJ239F"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"La Difícil",url:"https://open.spotify.com/track/6NfrH0ANGmgBXyxgV2PeXt"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Pero Ya No",url:"https://open.spotify.com/track/75pQqzwgCjUOSSy5CpmAjy"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"La Santa",url:"https://open.spotify.com/track/69vlMrzHwATKzupwNcUPyK"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Yo Perreo Sola",url:"https://open.spotify.com/track/0SqqAgdovOE24BzxIClpjw"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Bichiyal",url:"https://open.spotify.com/track/4DpNNXFMMxQEKl7r0ykkWA"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Soliá",url:"https://open.spotify.com/track/7sOfmPd18RWp3FoCzpa7Kw"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"La Zona",url:"https://open.spotify.com/track/5kqNIqFjijuzvVLhuY9B8j"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Qué Malo",url:"https://open.spotify.com/track/50ZC4PM7hywH27RcCf2dTS"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Vete",url:"https://open.spotify.com/track/2DEZmgHKAvm41k4J3R2E9Y"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Ignorantes",url:"https://open.spotify.com/track/38RIEav39FGi86jppxO0du"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"A Tu Merced",url:"https://open.spotify.com/track/4r9jkMEnArtWGH2rL2FZl0"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Una Vez",url:"https://open.spotify.com/track/5J7teKIJGtqVypgYI6sqXj"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Safaera",url:"https://open.spotify.com/track/2DEZmgHKAvm41k4J3R2E9Y"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"25/8",url:"https://open.spotify.com/track/4f8Mh5wuWHOsfXtzjrJB3t"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Está Cabrón Ser Yo",url:"https://open.spotify.com/track/7k4t7uLgtOxPwTpFmtJNTY"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"P FKN R",url:"https://open.spotify.com/track/4j4w4CXm6BSr0s25wAWrrX"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"Hablamos Mañana",url:"https://open.spotify.com/track/1V8XneTrX6kKeoxYbk4x6h"},
+{artista:"Bad Bunny",album:"YHLQMDLG",titulo:"<3",url:"https://open.spotify.com/track/4MZSqgwlE71CWZ6qQ3o0JW"},
+
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Moscow Mule",url:"https://open.spotify.com/track/6Xom58OOXk2SoU711L2IXO"},
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Después de la Playa",url:"https://open.spotify.com/track/1xK59OXxi2TAAAbmZK0kBL"},
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Me Porto Bonito",url:"https://open.spotify.com/track/6Sq7ltF9Qa7SNFBsV5Cogx"},
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Tití Me Preguntó",url:"https://open.spotify.com/track/1IHWl5LamUGEuP4ozKQSXZ"},
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Un Ratito",url:"https://open.spotify.com/track/2uzbATYxs9V8YQi5lf89WG"},
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Neverita",url:"https://open.spotify.com/track/3k3NWokhRRkEPhCzPmV8TW"},
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Party",url:"https://open.spotify.com/track/1nahzW3kfMuwReTka28tH5"},
+{artista:"Bad Bunny",album:"Un Verano Sin Ti",titulo:"Callaita",url:"https://open.spotify.com/track/2TH65lNHgvLxck8SkWlF4G"},
+
+{artista:"Bad Bunny",album:"Nadie Sabe Lo Que Va a Pasar Mañana",titulo:"NADIE SABE",url:"https://open.spotify.com/track/5r6jhFgbmQjYz2Jq7JwK7J"},
+{artista:"Bad Bunny",album:"Nadie Sabe Lo Que Va a Pasar Mañana",titulo:"MONACO",url:"https://open.spotify.com/track/4MjDJD8cW7iVeWInc2Bdyj"},
+{artista:"Bad Bunny",album:"Nadie Sabe Lo Que Va a Pasar Mañana",titulo:"FINA",url:"https://open.spotify.com/track/5w0JpiGrqQka0ZzDPx0J3L"},
+{artista:"Bad Bunny",album:"Nadie Sabe Lo Que Va a Pasar Mañana",titulo:"WHERE SHE GOES",url:"https://open.spotify.com/track/7ro0hRteUMfnOioTFI5TG1"},
+{artista:"Bad Bunny",album:"Nadie Sabe Lo Que Va a Pasar Mañana",titulo:"PERRO NEGRO",url:"https://open.spotify.com/track/6XjDF6nds4DE2BBbagZol6"},
+{artista:"Bad Bunny",album:"Nadie Sabe Lo Que Va a Pasar Mañana",titulo:"UN PREVIEW",url:"https://open.spotify.com/track/1kuGVB7EU95pJObxwvfwKS"},
+
+{artista:"Kenia OS",album:"Cambios de Luna",titulo:"Se Fué La Luz",url:"https://open.spotify.com/track/3GSMdtJphymHEsR8d7gWkR"},
+{artista:"Kenia OS",album:"Cambios de Luna",titulo:"Botellita",url:"https://open.spotify.com/track/0hquQWY3xvYqN4q7W6V4YH"},
+{artista:"Kenia OS",album:"Cambios de Luna",titulo:"Tsunami",url:"https://open.spotify.com/track/4vM1XH9Q8A9vP5xW7dL2Qa"},
+{artista:"Kenia OS",album:"Cambios de Luna",titulo:"Toxic",url:"https://open.spotify.com/track/2V65y3PX4DkRhy1djlxJzD"},
+
+{artista:"Kenia OS",album:"K23",titulo:"Mía Mía",url:"https://open.spotify.com/track/5QFJJCbM0j4LfQAK9tL8zD"},
+{artista:"Kenia OS",album:"K23",titulo:"Toketeo",url:"https://open.spotify.com/track/2z9Wg6x8J4QnK5dP1mR7Lc"},
+{artista:"Kenia OS",album:"K23",titulo:"Se Fué La Luz",url:"https://open.spotify.com/track/3GSMdtJphymHEsR8d7gWkR"},
+{artista:"Kenia OS",album:"K23",titulo:"Tsunami",url:"https://open.spotify.com/track/4vM1XH9Q8A9vP5xW7dL2Qa"},
+
+{artista:"Kenia OS",album:"Canciones Pa’ Mi Ex Vol.1",titulo:"OMG",url:"https://open.spotify.com/track/5m0XU4K6Q6m4wM4Yb1K8nT"},
+{artista:"Kenia OS",album:"Canciones Pa’ Mi Ex Vol.1",titulo:"Kitty",url:"https://open.spotify.com/track/2F0W4R0g2A3mM6wN8kY1Lp"},
+{artista:"Kenia OS",album:"Canciones Pa’ Mi Ex Vol.1",titulo:"Tortura",url:"https://open.spotify.com/track/6j4G7kR2wQ9mN1xY5pL8Ta"},
+
+{artista:"Kenia OS",album:"Pink Aura",titulo:"Pink Aura",url:"https://open.spotify.com/album/6QxYpK8mT4nL2vD7cR5Fa"},
+{artista:"Kenia OS",album:"Pink Aura",titulo:"OMG",url:"https://open.spotify.com/track/5m0XU4K6Q6m4wM4Yb1K8nT"},
+{artista:"Kenia OS",album:"Pink Aura",titulo:"Tortura",url:"https://open.spotify.com/track/6j4G7kR2wQ9mN1xY5pL8Ta"},
+{artista:"Kenia OS",album:"Pink Aura",titulo:"Kitty",url:"https://open.spotify.com/track/2F0W4R0g2A3mM6wN8kY1Lp"}
 ];
 
 window.onload = () => {
 
 cambiar("musica");
-render();
 
 const contenedor = document.getElementById("listaCanciones");
 
@@ -177,76 +272,23 @@ contenedor.innerHTML += `
 <div class="card">
 <h2>${cancion.artista}</h2>
 <h3>${cancion.titulo}</h3>
-<button onclick="window.open('${cancion.url}','_blank')">
-Escuchar en Spotify 🎵
-</button>
+<p>${cancion.album}</p>
+
+<iframe 
+style="border-radius:12px" 
+src="${convertirSpotify(cancion.url)}" 
+width="100%" 
+height="152" 
+frameborder="0" 
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+loading="lazy">
+</iframe>
+
 </div>
 `;
 });
-let startX = 0;
-let currentX = 0;
-let isDragging = false;
 
-function render(){
-
-let p = personas[i];
-
-document.getElementById("foto").src = p.foto;
-document.getElementById("nombreMatch").innerText = p.nombre;
-document.getElementById("artistaMatch").innerText = "Le gusta: " + p.artista;
-document.getElementById("opinion").innerText = p.opinion;
-
-addSwipe();
-}
-
-function addSwipe(){
-
-const card = document.querySelector("#match .card");
-
-if(!card) return;
-
-card.addEventListener("touchstart",(e)=>{
-startX = e.touches[0].clientX;
-isDragging = true;
-});
-
-card.addEventListener("touchmove",(e)=>{
-if(!isDragging) return;
-
-currentX = e.touches[0].clientX - startX;
-
-card.style.transform = `translateX(${currentX}px) rotate(${currentX/12}deg)`;
-});
-
-card.addEventListener("touchend",()=>{
-
-isDragging = false;
-
-if(currentX > 120){
-like();
-}
-else if(currentX < -120){
-next();
-}
-else{
-card.style.transform = "translateX(0)";
-}
-
-currentX = 0;
-
-});
-
-}
-
-function like(){
-alert("💖 Match con " + personas[i].nombre);
-next();
-}
-
-function next(){
-i = (i + 1) % personas.length;
-render();
-}
+mostrar();
 
 };
 
